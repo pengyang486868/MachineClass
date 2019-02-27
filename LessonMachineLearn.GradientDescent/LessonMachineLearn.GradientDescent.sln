@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LessonMachineLearn.GradientDescent", "LessonMachineLearn.GradientDescent\LessonMachineLearn.GradientDescent.pyproj", "{3866FD49-BDA7-478E-8E8B-30A37C80C04C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3866FD49-BDA7-478E-8E8B-30A37C80C04C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3866FD49-BDA7-478E-8E8B-30A37C80C04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {440C26DA-1C8E-48D1-A481-8F67086100E7}
+	EndGlobalSection
+EndGlobal
