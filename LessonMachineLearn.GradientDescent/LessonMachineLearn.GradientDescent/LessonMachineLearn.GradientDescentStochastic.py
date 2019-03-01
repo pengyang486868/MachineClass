@@ -45,13 +45,7 @@ def lossfunc(w0,w1,w2,x1,x2,y):
     return sum / count / 2
 
 def gradientcoef(w0,w1,w2,x1,x2,y,xcurrent):
-    list = (model(w0,w1,w2,x1,x2) - y) * xcurrent
-    sum = 0
-    count = 0
-    for da in list:
-        sum = sum + da
-        count = count + 1
-    return sum / count
+    return (model(w0,w1,w2,x1,x2) - y) * xcurrent
 
 
 #-------------------------------------------
@@ -84,21 +78,29 @@ room = normalized['room']
 price = normalized['price']
 
 w0,w1,w2 = 0,0,0
-rate = 0.1
-iters = 80
+rate = 0.05
+iters = 3
 
 start_time = time.time()
 
-for i in range(iters):
-    #jw = lossfunc(w0,w1,w2,area,room,price) # comment when timing
-    w0 = w0 - rate * gradientcoef(w0,w1,w2,area,room,price,1)
-    w1 = w1 - rate * gradientcoef(w0,w1,w2,area,room,price,area)
-    w2 = w2 - rate * gradientcoef(w0,w1,w2,area,room,price,room)
-    #print(jw) # comment when timing
-end_time = time.time()
-print('time ' , end_time - start_time) # 0.103
+for iter in range(iters):
+	randindex = normalized.reindex(np.random.permutation(normalized.index))
+	normalized = pd.DataFrame(randindex.values,columns=columnNames)
+	area = normalized['area']
+	room = normalized['room']
+	price = normalized['price']
+	
+	#jw = lossfunc(w0,w1,w2,area,room,price) # comment when timing
+	#print(jw) # comment when timing
 
-print(w0 + w1 * area + w2 * room - price)
+	for i in range(trainsize):		
+		w0 = w0 - rate * gradientcoef(w0,w1,w2,area[i],room[i],price[i],1)
+		w1 = w1 - rate * gradientcoef(w0,w1,w2,area[i],room[i],price[i],area[i])
+		w2 = w2 - rate * gradientcoef(w0,w1,w2,area[i],room[i],price[i],room[i])
+end_time = time.time()
+print('time ' , end_time - start_time)
+
+print(w0 + w1 * area + w2 * room - price) # 0.037s
 answer = w0 + w1 * area + w2 * room
 plt.plot(range(answer.shape[0]),answer.sort_values())
 plt.plot(range(price.shape[0]),price.sort_values())
