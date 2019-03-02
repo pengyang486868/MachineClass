@@ -85,7 +85,10 @@ price = normalized['price']
 
 w0,w1,w2 = 0,0,0
 rate = 0.1
-iters = 80
+iters = 81
+
+iterarray = []
+jwarray = []
 
 start_time = time.time()
 
@@ -95,15 +98,27 @@ for i in range(iters):
     w1 = w1 - rate * gradientcoef(w0,w1,w2,area,room,price,area)
     w2 = w2 - rate * gradientcoef(w0,w1,w2,area,room,price,room)
     #print(jw) # comment when timing
+    if i % 10 == 0:
+        iterarray.append(i)
+        jw = lossfunc(w0,w1,w2,area,room,price)
+        jwarray.append(jw)
+plt.scatter(iterarray,jwarray)
+plt.plot(iterarray,jwarray)
+plt.title('learning rate = '+str(rate))
+axes = plt.gca()
+axes.set_ylim([0,0.6])
+plt.show()
+
 end_time = time.time()
 print('time ' , end_time - start_time) # 0.103
-
 print(w0 + w1 * area + w2 * room - price)
 answer = w0 + w1 * area + w2 * room
-plt.plot(range(answer.shape[0]),answer.sort_values())
-plt.plot(range(price.shape[0]),price.sort_values())
+plt.plot(range(answer.shape[0]),answer.sort_values(),label='predict result')
+plt.plot(range(price.shape[0]),price.sort_values(),label='raw values')
 #plt.scatter(room,answer)
 #plt.scatter(room,price)
+plt.title('Predict vs Correct')
+plt.legend()
 plt.show()
 
 predict_area = 2650

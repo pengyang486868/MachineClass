@@ -81,6 +81,10 @@ w0,w1,w2 = 0,0,0
 rate = 0.05
 iters = 3
 
+iterarray = []
+jwarray = []
+itertime = 0
+
 start_time = time.time()
 
 for iter in range(iters):
@@ -92,20 +96,33 @@ for iter in range(iters):
 	
 	#jw = lossfunc(w0,w1,w2,area,room,price) # comment when timing
 	#print(jw) # comment when timing
-
 	for i in range(trainsize):		
 		w0 = w0 - rate * gradientcoef(w0,w1,w2,area[i],room[i],price[i],1)
 		w1 = w1 - rate * gradientcoef(w0,w1,w2,area[i],room[i],price[i],area[i])
 		w2 = w2 - rate * gradientcoef(w0,w1,w2,area[i],room[i],price[i],room[i])
+		jw = lossfunc(w0,w1,w2,area,room,price) # comment when timing        
+		itertime = itertime + 1
+		iterarray.append(itertime)
+		jw = lossfunc(w0,w1,w2,area,room,price)
+		jwarray.append(jw)
+
 end_time = time.time()
 print('time ' , end_time - start_time)
 
+plt.plot(iterarray,jwarray)
+plt.title('Random/learning rate = '+str(rate))
+axes = plt.gca()
+axes.set_ylim([0,0.6])
+plt.show()
+
 print(w0 + w1 * area + w2 * room - price) # 0.037s
 answer = w0 + w1 * area + w2 * room
-plt.plot(range(answer.shape[0]),answer.sort_values())
-plt.plot(range(price.shape[0]),price.sort_values())
+plt.plot(range(answer.shape[0]),answer.sort_values(),label='predict result')
+plt.plot(range(price.shape[0]),price.sort_values(),label='raw values')
 #plt.scatter(room,answer)
 #plt.scatter(room,price)
+plt.title('Predict vs Correct (Stocastic)')
+plt.legend()
 plt.show()
 
 predict_area = 2650

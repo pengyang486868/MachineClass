@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3866fd49-bda7-478e-8e8b-30a37c80c04c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>LessonMachineLearn.GradientDescent.py</StartupFile>
+    <StartupFile>LessonMachineLearn.GradientDescentStochastic.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
